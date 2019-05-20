@@ -1,10 +1,11 @@
 import numpy as np
 from math import sqrt, ceil
+import sys
 import matplotlib.pyplot as plt
 import glob
 
-# Get paths to
-path = "d:/Dysk Google/Studia\Fizyka/reSemestr IV/Pracownia fizyczna dla zaawansowanych A/Optyka/L3/Badania 1/"
+# Get paths to images
+path = "./Badania 1/"
 csvs = glob.glob(path + "*.csv")
 
 # For each data file
@@ -16,8 +17,7 @@ for csv in csvs:
     if csv.__contains__('x'):
         temperature_str = csv.split('x')[1]
         temperature_str = temperature_str.split('.csv')[0]
-        T = "Laser 1. x = " + temperature_str
-        #T = "Laser 1. T = " + str(12.88 * int(temperature_str) / + 1167.25)
+        T = "Laser 1. T = " + str(np.round((int(temperature_str) - 1167.25) / 12.88, decimals=1))
     else:
         temperature_str = csv.split("\\t")
         temperature_str = temperature_str[len(temperature_str) - 1]
