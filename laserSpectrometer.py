@@ -27,9 +27,9 @@ f.close()
 
 print("Getting files")
 #files = glob.glob(path + "l1t7*")
-files = glob.glob(path + "l1*")
+files = glob.glob(path + "l2t*")
 
-#files = ['l1t7i20', 'l1t7i325', 'l1t54i20', 'l1t54i325']
+#files = ['l2t7i65', 'l2t35i65', 'l2t7i38', 'l2t35i38']
 
 intensities = []
 positions = []
@@ -47,7 +47,7 @@ for file in files:
     intensity = fileName.split('i')[1]
 
     #if float(intensity) < 100:
-    if float(intensity) != 30.0:
+    if float(intensity) != 56.0:
         continue
 
     temperatures.append(float(temperature))
@@ -79,7 +79,8 @@ for file in files:
     intensities.append(float(intensity))
     positions.append(float(x[yMaxIdx]))
 
-    T = "Laser 1. T = " + temperature + ", i = " + intensity + " (mA)"
+    '''
+    T = "Laser 2. T = " + temperature + ", i = " + intensity + " (mA)"
 
     plt.plot(x, y)
     plt.title(T)
@@ -87,18 +88,17 @@ for file in files:
     plt.xlabel('Natężenie zasilające (mA)')
     plt.savefig("figs/" + T + ".png")
     plt.show()
+    '''
 
 
 slope, intercept, r_value, p_value, std_err = stats.linregress(temperatures, positions)
-line = [0.99 * i + 679.54 for i in temperatures]
+line = [0.92 * i + 688 for i in temperatures]
 
-print("x_{"+ temperature +"}(I_i) = " + str(np.round(slope, decimals=2)) + "I_i + " + str(np.round(intercept, decimals=2)))
+print("x_{"+ intensity +"}(T) = " + str(np.round(slope, decimals=2)) + "T + " + str(np.round(intercept, decimals=2)))
 
 plt.plot(temperatures, positions, 'ro', temperatures, line)
-plt.title("Laser 1. Zależność położenia linii w funkcji temperatury. I = 30 (mA)")
+plt.title("Laser 2. Zależność położenia linii w funkcji temperatury. I = 56 (mA)")
 plt.ylabel('Zmierzona długość fali (nm)')
 plt.xlabel('Temperatura (stopnie C)')
 plt.savefig("figs/iw.png")
 plt.show()
-
-
